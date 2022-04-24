@@ -16,6 +16,18 @@ int main() {
         case 3 :
             Problem3();
             break;
+        case 4 :
+            Problem4();
+            break;
+        case 5 :
+            Problem5();
+            break;
+        case 6 :
+            Problem6();
+            break;
+        case 7 :
+            Problem7();
+            break;
         default :
             printf("That problem isn't solved here yet!");
     }
