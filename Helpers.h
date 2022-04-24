@@ -7,5 +7,6 @@
 bool IsPrime(long &num);
 bool IsPrime(int &num);
 bool IsPalindrome(int &num);
+int GetNumOfDivisors(int &num);
 
 #endif

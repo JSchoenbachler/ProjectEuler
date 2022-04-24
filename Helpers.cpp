@@ -29,3 +29,16 @@ bool IsPalindrome(int &num) {
     }
     return true;
 }
+
+int GetNumOfDivisors(int &num) {
+    int sqrt = floor(pow(num, 0.5));
+
+    int numDivisors = 0;
+    for(int i = 1; i <= sqrt; i++) {
+        if (num % i == 0) {
+            numDivisors += (i != sqrt ? 2 : 1);
+        }
+    }
+
+    return numDivisors;
+}
