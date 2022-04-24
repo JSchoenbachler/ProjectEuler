@@ -28,6 +28,9 @@ int main() {
         case 7 :
             Problem7();
             break;
+        case 8 :
+            Problem8();
+            break;
         default :
             printf("That problem isn't solved here yet!");
     }
