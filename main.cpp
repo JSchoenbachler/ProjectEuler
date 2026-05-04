@@ -46,6 +46,9 @@ int main() {
         case 13 :
             Problem13();
             break;
+        case 14 :
+            Problem14();
+            break;
         default :
             printf("That problem isn't solved here yet!");
     }

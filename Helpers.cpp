@@ -45,6 +45,23 @@ int GetNumOfDivisors(int &num) {
     return numDivisors;
 }
 
+unsigned long long GetCollatzSequenceLength(unsigned long long num, unordered_map<unsigned long long, unsigned long long>& CachedSequenceCountMap)
+{
+    auto it = CachedSequenceCountMap.find(num);
+    if (it == CachedSequenceCountMap.end())
+    {
+        if (num % 2 == 0)
+        {
+            CachedSequenceCountMap[num] = 1 + GetCollatzSequenceLength(num / 2, CachedSequenceCountMap);
+        }
+        else
+        {
+            CachedSequenceCountMap[num] = 1 + GetCollatzSequenceLength((num * 3) + 1, CachedSequenceCountMap);
+        }
+    }
+    return CachedSequenceCountMap[num];
+}
+
 void UnsignedSuperUltraLong::ToCharArr(char* CopyToArr)
 {
     sprintf(CopyToArr, "%llu%.*llu%.*llu", Upper, kMaxDigitsPerPart, Mid, kMaxDigitsPerPart, Lower);

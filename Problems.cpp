@@ -4,6 +4,7 @@
 #include <math.h>
 #include <string>
 #include <vector>
+#include <unordered_map>
 #include <algorithm>
 
 using namespace std;
@@ -401,4 +402,29 @@ void Problem13() {
         cout << MyTestCharArr[i];
     }
     cout << endl;
+}
+
+void Problem14() {
+    cout << "Which starting number, under one million, produces the longest (Collatz Sequence) chain?" << endl;
+
+    unordered_map<unsigned long long, unsigned long long> CachedSequenceMap;
+    CachedSequenceMap[1] = 1;
+    unsigned long StartingNumberLongestChain = 1;
+
+    for (unsigned long i = 2; i < 1000000; ++i)
+    {
+        //cout << "On index " << i << endl;
+        auto it = CachedSequenceMap.find(i);
+        if (it == CachedSequenceMap.end())
+        {
+            GetCollatzSequenceLength(i, CachedSequenceMap);
+        }
+        if (CachedSequenceMap[i] > CachedSequenceMap[StartingNumberLongestChain])
+        {
+            cout << "Updating longest chain to (index = " << i << ", number = " << CachedSequenceMap[i] << ")" << endl;
+            StartingNumberLongestChain = i;
+        }
+    }
+    
+    cout << "Starting number: " << StartingNumberLongestChain << endl;
 }

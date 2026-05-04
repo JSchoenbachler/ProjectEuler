@@ -3,11 +3,13 @@
 
 #include <math.h>
 #include <string>
+#include <unordered_map>
 
 bool IsPrime(long &num);
 bool IsPrime(int &num);
 bool IsPalindrome(int &num);
 int GetNumOfDivisors(int &num);
+unsigned long long GetCollatzSequenceLength(unsigned long long num, std::unordered_map<unsigned long long, unsigned long long>& CachedSequenceCountMap);
 
 class UnsignedSuperUltraLong {
 public:
