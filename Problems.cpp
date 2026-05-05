@@ -469,3 +469,59 @@ void Problem15() {
     unsigned long long TotalRoutes = (NumeratorOddFactorial * pow(2, ceil(HalfGridSize))) / DenominatorHalfFactorial;
     cout << "Total routes: " << TotalRoutes << endl;
 }
+
+void Problem16() {
+    cout << "What is the sum of the digits of the number 2^1000?" << endl;
+    
+    unsigned int DigitSum = 0;
+    // Not planning on making this one super scalable.
+    // Going to make an array to hold different sections of numbers as I multiply out the the 2^1000.
+    // Keeping each item in array as unsigned long so I can use ltoa (34 is number needed to hold values up to e301 capped at e9 each)
+    unsigned long ArrayOfInts[34] = {0};
+    ArrayOfInts[0] = 2;
+    unsigned int MaxIdxSoFar = 0;
+    // Going to get a constant for 10^9 to cap out each array index.
+    const unsigned long  kTenTo9 = 1000000000;
+    for(int i = 2; i <= 1000; ++i)
+    {
+        unsigned int Overflow = 0;
+        for (int j = 0; j <= MaxIdxSoFar; ++j)
+        {
+            ArrayOfInts[j] = (ArrayOfInts[j] * 2) + Overflow;
+            if (ArrayOfInts[j] >= kTenTo9)
+            {
+                ArrayOfInts[j] -= kTenTo9;
+                Overflow = 1;
+            }
+            else
+            {
+                Overflow = 0;
+            }
+        }
+        if (Overflow == 1)
+        {
+            ++MaxIdxSoFar;
+            ArrayOfInts[MaxIdxSoFar] = 1;
+        }
+    }
+    for (int i = 0; i <= MaxIdxSoFar; ++i)
+    {
+        char Buff[10];
+        ltoa(ArrayOfInts[i], Buff, 10);
+        for (int j = 0; j < 10; ++j)
+        {
+            if (Buff[j] == '\0') break;
+            int CurDigitVal = Buff[j] - '0';
+            if (CurDigitVal > 0 && CurDigitVal <= 9)
+            {
+                DigitSum += CurDigitVal;
+            }
+        }
+    }
+
+    cout << "Leading digits: " << ArrayOfInts[MaxIdxSoFar] << endl;
+    cout << "Next digits: " << ArrayOfInts[MaxIdxSoFar-1] << endl;
+    cout << "Next digits: " << ArrayOfInts[MaxIdxSoFar-2] << endl;
+
+    cout << "Digit sum: " << DigitSum << endl;
+}
