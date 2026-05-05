@@ -428,3 +428,44 @@ void Problem14() {
     
     cout << "Starting number: " << StartingNumberLongestChain << endl;
 }
+
+void Problem15() {
+    cout << "How many such routes are there through a 20x20 grid?" << endl;
+    const unsigned int kGridSize = 20;
+    // I wrote out a function to calculate this by navigating all paths, commented out below.
+    // unsigned long long TotalRoutes = GetTotalRoutesForGrid(kGridSize, 0, 0);
+
+    // It was not efficient and I figured there was an equation so I played around with the results for grid sizes 1-5 and found how they related in a formula:
+    // (Size, Routes)
+    // (1, 2)
+    // (2, 6)
+    // (3, 20)
+    // (4, 70)
+    // (5, 252)
+    // After playing with numbers, mostly focusing on factorials, etc. I got this equation to solve it (where x is width of grid):
+    // Routes = (2x)! / ((x!)^2)
+    // This can further be simplified down, by extrapolating out factorials (this is going to help us get around int sizes):
+    // ((2x * (2x-1) * [...] * (x + 1))(x!)) / ((x!)(x!)) ->
+    // (2x * (2x-1) * [...] * (x + 1)) / (x!)
+    // Okay, we are getting somewhere, but this can actually be simplified even further.
+    // We know every even value in the numerator is equal to double half of the denominator values. For example with 4:
+    // (8 * 7 * 6 * 5) / (4 * 3 * 2 *1) -> (2 * 7 * 2 * 5) / (1 * 1 * 2 * 1)
+    // or, rather:
+    // ((7 * 5) * 2^2) / (2!)
+    // So now, lets make it a bit more of an algorithm.
+    // (FactorialUpperHalfOnlyOdds(2x) * 2^Ceil(x/2)) / (Floor(x/2)!)
+    // Now we can actually do this an efficient way and get around obscenely large numbers.
+    float HalfGridSize = kGridSize / 2.0;
+    unsigned long long NumeratorOddFactorial = (kGridSize * 2) - 1;
+    for (int i = NumeratorOddFactorial-2; i > kGridSize; i -= 2)
+    {
+        NumeratorOddFactorial *= i;
+    }
+    unsigned long long DenominatorHalfFactorial = floor(HalfGridSize);
+    for (int i = DenominatorHalfFactorial-1; i > 0; --i)
+    {
+        DenominatorHalfFactorial *= i;
+    }
+    unsigned long long TotalRoutes = (NumeratorOddFactorial * pow(2, ceil(HalfGridSize))) / DenominatorHalfFactorial;
+    cout << "Total routes: " << TotalRoutes << endl;
+}

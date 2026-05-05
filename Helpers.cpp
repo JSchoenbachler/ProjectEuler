@@ -62,6 +62,36 @@ unsigned long long GetCollatzSequenceLength(unsigned long long num, unordered_ma
     return CachedSequenceCountMap[num];
 }
 
+unsigned long long GetTotalRoutesForGrid(unsigned int Width, unsigned int x, unsigned int y)
+{
+    if (x == Width && y == Width)
+    {
+        return 0;
+    }
+    else if (x == Width)
+    {
+        return 1;
+    }
+    else if (y == Width)
+    {
+        return 1;
+    }
+    else
+    {
+        return GetTotalRoutesForGrid(Width, x + 1, y) + GetTotalRoutesForGrid(Width, x, y + 1);
+    }
+}
+
+unsigned long long Factorial(unsigned int num)
+{
+    unsigned long long RetVal = 1;
+    for (int i = 1; i <= num; ++i)
+    {
+        RetVal *= i;
+    }
+    return RetVal;
+}
+
 void UnsignedSuperUltraLong::ToCharArr(char* CopyToArr)
 {
     sprintf(CopyToArr, "%llu%.*llu%.*llu", Upper, kMaxDigitsPerPart, Mid, kMaxDigitsPerPart, Lower);

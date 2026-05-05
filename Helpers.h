@@ -10,6 +10,8 @@ bool IsPrime(int &num);
 bool IsPalindrome(int &num);
 int GetNumOfDivisors(int &num);
 unsigned long long GetCollatzSequenceLength(unsigned long long num, std::unordered_map<unsigned long long, unsigned long long>& CachedSequenceCountMap);
+unsigned long long GetTotalRoutesForGrid(unsigned int Width, unsigned int x, unsigned int y);
+unsigned long long Factorial(unsigned int num);
 
 class UnsignedSuperUltraLong {
 public:
