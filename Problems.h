@@ -19,5 +19,10 @@ void Problem13();
 void Problem14();
 void Problem15();
 void Problem16();
+void Problem17();
+void Problem18();
+void Problem19();
+void Problem20();
+void Problem67();
 
 #endif

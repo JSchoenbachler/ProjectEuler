@@ -1,9 +1,5 @@
-#include <iostream>
-#include <math.h>
-#include <string>
-#include "Helpers.h"
 
-using namespace std;
+#include "Helpers.h"
 
 bool IsPrime(long &num) {
     long sqrt = floor(pow(num, 0.5));
@@ -97,6 +93,35 @@ void UnsignedSuperUltraLong::ToCharArr(char* CopyToArr)
     sprintf(CopyToArr, "%llu%.*llu%.*llu", Upper, kMaxDigitsPerPart, Mid, kMaxDigitsPerPart, Lower);
 }
 
+void UnsignedSuperUltraLong::MultiplyBy(unsigned int Multiplier)
+{
+    cout << "Multiplying an UnsignedSuperUltraLong by " << Multiplier << endl;
+    UnsignedSuperUltraLong Tmp = *this;
+    for (int i = 1; i < Multiplier; ++i){
+        //cout << "i=" << i << endl;
+        *this = *this + Tmp;
+    }
+}
+
+void UnsignedSuperUltraLong::DivideByTen()
+{
+    Lower /= 10;
+    unsigned int MidMod = Mid % 10;
+    if (MidMod > 0)
+    {
+        Lower += (kOverflow / 10) * MidMod;
+        Mid -= MidMod;
+    }
+    Mid /= 10;
+    unsigned int UpperMod = Upper % 10;
+    if (MidMod > 0)
+    {
+        Mid += (kOverflow / 10) * UpperMod;
+        Upper -= UpperMod;
+    }
+    Upper /= 10;
+}
+
 UnsignedSuperUltraLong::UnsignedSuperUltraLong(const char* FromString, size_t StrLen)
 {
     unsigned int CurDigitPlace = 1;
@@ -131,5 +156,32 @@ UnsignedSuperUltraLong::UnsignedSuperUltraLong(const char* FromString, size_t St
             DigitTens = 1;
         }
 
+    }
+}
+
+void ToCharArr(const SuperUltraLong & SUL, char* CopyToArr)
+{
+    int idx = 0;
+    if (SUL.isNegative)
+    {
+        CopyToArr[0] = '-';
+        idx++;
+    }
+    bool ShowedFirstOne = false;
+    for (int i = SuperUltraLong::kMaxTotalInts - 1; i >= 0; --i)
+    {
+        if (SUL.IntArray[i] > 0 && !ShowedFirstOne)
+        {
+            ShowedFirstOne = true;
+        }
+        if (ShowedFirstOne || i == 0)
+        {
+            CopyToArr[idx] = SUL.IntArray[i] + '0';
+            idx++;
+        }
+    }
+    if (idx != SuperUltraLong::kMaxTotalInts+1)
+    {
+        CopyToArr[idx] = '\0';
     }
 }

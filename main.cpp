@@ -55,6 +55,22 @@ int main() {
         case 16 :
             Problem16();
             break;
+        case 17 :
+            Problem17();
+            break;
+        case 18 :
+            Problem18();
+            break;
+        case 19 :
+            Problem19();
+            break;
+        case 20 :
+            //printf("That problem is under construction!");
+            Problem20();
+            break;
+        case 67 :
+            Problem67();
+            break;
         default :
             printf("That problem isn't solved here yet!");
     }
