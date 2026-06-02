@@ -707,7 +707,6 @@ void Problem20() {
     char MyTestCharArr[SuperUltraLong::kMaxTotalInts+1];
 
     for (int i = 99; i > 1; --i) {
-        cout << "i: " << i << endl;
         if (i % 10 == 0) {
             FactorialRunningTotal = FactorialRunningTotal * (i / 10);
         }
@@ -727,7 +726,7 @@ void Problem20() {
         }
     }
     ToCharArr(FactorialRunningTotal, MyTestCharArr);
-    cout << "End Factorial: " << MyTestCharArr << endl;
+    //cout << "End Factorial: " << MyTestCharArr << endl;
     for (int i = 0; i < SuperUltraLong::kMaxTotalInts; ++i)
     {
         FactorialDigitSum += FactorialRunningTotal.IntArray[i];
